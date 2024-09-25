@@ -20,8 +20,8 @@ class HumanParserPascalCustomNode:
       },
     }
 
-  RETURN_TYPES = ("MASK", "IMAGE")
-  RETURN_NAMES = ("mask", "map")
+  RETURN_TYPES = ("MASK", "MASK", "IMAGE")
+  RETURN_NAMES = ("mask", "Seg", "map")
   FUNCTION = "run"
   CATEGORY = "CozyMantis"
 
@@ -55,6 +55,7 @@ class HumanParserPascalCustomNode:
     mask_image = mask_image.convert("RGB")
     mask_image = torch.from_numpy(np.array(mask_image).astype(np.float32) / 255.0).unsqueeze(0)
 
+    seg_image = torch.from_numpy(np.array(output_img).astype(np.float32) / 255.0).unsqueeze(0)
     output_img = output_img.convert('RGB')
     output_img = torch.from_numpy(np.array(output_img).astype(np.float32) / 255.0).unsqueeze(0)
-    return (mask_image[:, :, :, 0], output_img,)
+    return (mask_image[:, :, :, 0], seg_image[:, :, :, 0], output_img,)
