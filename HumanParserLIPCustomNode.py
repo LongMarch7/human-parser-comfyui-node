@@ -98,4 +98,4 @@ class HumanParserLIPCustomNode:
     
     output_img = output_img.convert('RGB')
     output_img = torch.from_numpy(np.array(output_img).astype(np.float32) / 255.0).unsqueeze(0)
-    return (mask_image[:, :, :, 0], seg_image[:, :, :, 0], output_img,)
+    return (mask_image[:, :, :, 0], seg_image, output_img,)
